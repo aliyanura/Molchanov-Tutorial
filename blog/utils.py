@@ -47,3 +47,18 @@ class ObjectUpdateMixin:
             new_obj = bound_form.save()
             return redirect(new_obj)
         return render(request, self.template, {self.model.__name__.lower(): obj, 'form': bound_form})
+
+
+class ObjectDeleteMixin:
+    model = None
+    template = None
+    redirect_url = None
+     
+    def get(self, request, slug):
+        obj = self.model.objects.get(slug__iexact=slug)
+        return render(request, self.template, {self.model.__name__.lower(): obj})
+
+    def post(self, request, slug):
+        obj = self.model.objects.get(slug__iexact=slug)
+        obj.delete()
+        return redirect(reverse(self.redirect_url))

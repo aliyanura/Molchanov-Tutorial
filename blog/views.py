@@ -45,3 +45,15 @@ class PostUpdate(ObjectUpdateMixin, View):
     model = Post
     model_form = PostForm
     template = 'blog/post_update.html'
+
+
+class TagDelete(ObjectDeleteMixin, View):
+    model = Tag
+    template = 'blog/tag_delete.html'
+    redirect_url = 'tags_list'
+    
+
+class PostDelete(ObjectDeleteMixin, View):
+    model = Post
+    template = 'blog/post_delete.html'
+    redirect_url = 'posts_list'
